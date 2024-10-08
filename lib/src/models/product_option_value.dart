@@ -12,7 +12,7 @@ class ProductOptionValue {
     required this.value,
     required this.optionId,
     this.option,
-    required this.variantId,
+    this.variantId,
     this.variant,
     required this.createdAt,
     required this.updatedAt,
@@ -37,7 +37,7 @@ class ProductOptionValue {
   ProductOption? option;
 
   /// The ID of the product variant that uses this product option value.
-  late String variantId;
+  late String? variantId;
 
   /// The details of the product variant that uses this product option value.
   ProductVariant? variant;

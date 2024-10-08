@@ -21,7 +21,7 @@ class PricedVariant extends ProductVariant {
     super.ean,
     super.upc,
     super.variantRank,
-    required super.inventoryQuantity,
+    super.inventoryQuantity,
     required super.allowBackorder,
     required super.manageInventory,
     super.hsCode,

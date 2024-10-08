@@ -22,7 +22,7 @@ ProductVariant _$ProductVariantFromJson(Map<String, dynamic> json) =>
       ean: json['ean'] as String?,
       upc: json['upc'] as String?,
       variantRank: (json['variant_rank'] as num?)?.toInt(),
-      inventoryQuantity: (json['inventory_quantity'] as num).toInt(),
+      inventoryQuantity: (json['inventory_quantity'] as num?)?.toInt() ?? 0,
       allowBackorder: json['allow_backorder'] as bool,
       manageInventory: json['manage_inventory'] as bool,
       hsCode: json['hs_code'] as String?,
@@ -67,7 +67,7 @@ Map<String, dynamic> _$ProductVariantToJson(ProductVariant instance) {
   writeNotNull('ean', instance.ean);
   writeNotNull('upc', instance.upc);
   writeNotNull('variant_rank', instance.variantRank);
-  val['inventory_quantity'] = instance.inventoryQuantity;
+  writeNotNull('inventory_quantity', instance.inventoryQuantity);
   val['allow_backorder'] = instance.allowBackorder;
   val['manage_inventory'] = instance.manageInventory;
   writeNotNull('hs_code', instance.hsCode);

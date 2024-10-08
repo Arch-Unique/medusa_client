@@ -10,32 +10,21 @@ part 'generated/auth.g.dart';
 @RestApi()
 abstract class AuthResource {
   factory AuthResource(Dio dio, {String baseUrl}) = _AuthResource;
-
-  @POST('/store/auth')
-  Future<StoreAuthRes> authenticate(
+  @POST('/auth/customer/{auth_provider}')
+  Future<void> login(
     @Body() StorePostAuthReq payload, {
     @Extras() Map<String, String>? customHeaders,
   });
 
-  @DELETE('/store/auth')
-  Future<void> deleteSession({
-    @Extras() Map<String, String>? customHeaders,
-  });
-
-  @GET('/store/auth')
-  Future<StoreAuthRes> getSession({
-    @Extras() Map<String, String>? customHeaders,
-  });
-
-  @GET('/store/auth/{email}')
-  Future<StoreGetAuthEmailRes> exists(
-    @Path('email') String email, {
-    @Extras() Map<String, String>? customHeaders,
-  });
-
-  @POST('/store/auth/token')
-  Future<StoreBearerAuthRes> getToken(
+    @POST('/auth/customer/{auth_provider}/register')
+  Future<void> getRegistrationToken(
+    @Path('auth_provider') String authProvider,
     @Body() StorePostAuthReq payload, {
+    @Extras() Map<String, String>? customHeaders,
+  });
+
+    @POST('/auth/token/refresh')
+  Future<StoreBearerAuthRes> refreshToken({
     @Extras() Map<String, String>? customHeaders,
   });
 }

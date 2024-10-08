@@ -14,7 +14,7 @@ ProductOptionValue _$ProductOptionValueFromJson(Map<String, dynamic> json) =>
       option: json['option'] == null
           ? null
           : ProductOption.fromJson(json['option'] as Map<String, dynamic>),
-      variantId: json['variant_id'] as String,
+      variantId: json['variant_id'] as String?,
       variant: json['variant'] == null
           ? null
           : ProductVariant.fromJson(json['variant'] as Map<String, dynamic>),
@@ -38,7 +38,7 @@ Map<String, dynamic> _$ProductOptionValueToJson(ProductOptionValue instance) {
   }
 
   writeNotNull('option', instance.option?.toJson());
-  val['variant_id'] = instance.variantId;
+  writeNotNull('variant_id', instance.variantId);
   writeNotNull('variant', instance.variant?.toJson());
   val['created_at'] = instance.createdAt;
   val['updated_at'] = instance.updatedAt;

@@ -1,7 +1,7 @@
 name: medusa_client
 
 description: A Dart client for interacting with the MedusaJS API.
-version: 0.0.1
+version: 0.0.4
 homepage: https://github.com/Arch-Unique/medusa_client
 
 environment:

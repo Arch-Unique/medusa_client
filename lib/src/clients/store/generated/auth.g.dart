@@ -22,7 +22,7 @@ class _AuthResource implements AuthResource {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<StoreAuthRes> authenticate(
+  Future<void> login(
     StorePostAuthReq payload, {
     Map<String, String>? customHeaders,
   }) async {
@@ -33,49 +33,14 @@ class _AuthResource implements AuthResource {
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(payload.toJson());
-    final _options = _setStreamType<StoreAuthRes>(Options(
+    final _options = _setStreamType<void>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
     )
         .compose(
           _dio.options,
-          '/store/auth',
-          queryParameters: queryParameters,
-          data: _data,
-        )
-        .copyWith(
-            baseUrl: _combineBaseUrls(
-          _dio.options.baseUrl,
-          baseUrl,
-        )));
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late StoreAuthRes _value;
-    try {
-      _value = StoreAuthRes.fromJson(_result.data!);
-    } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
-      rethrow;
-    }
-    return _value;
-  }
-
-  @override
-  Future<void> deleteSession({Map<String, String>? customHeaders}) async {
-    final _extra = <String, dynamic>{};
-    _extra.addAll(customHeaders ?? <String, dynamic>{});
-    final queryParameters = <String, dynamic>{};
-    queryParameters.removeWhere((k, v) => v == null);
-    final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<void>(Options(
-      method: 'DELETE',
-      headers: _headers,
-      extra: _extra,
-    )
-        .compose(
-          _dio.options,
-          '/store/auth',
+          '/auth/customer/{auth_provider}',
           queryParameters: queryParameters,
           data: _data,
         )
@@ -88,80 +53,8 @@ class _AuthResource implements AuthResource {
   }
 
   @override
-  Future<StoreAuthRes> getSession({Map<String, String>? customHeaders}) async {
-    final _extra = <String, dynamic>{};
-    _extra.addAll(customHeaders ?? <String, dynamic>{});
-    final queryParameters = <String, dynamic>{};
-    queryParameters.removeWhere((k, v) => v == null);
-    final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<StoreAuthRes>(Options(
-      method: 'GET',
-      headers: _headers,
-      extra: _extra,
-    )
-        .compose(
-          _dio.options,
-          '/store/auth',
-          queryParameters: queryParameters,
-          data: _data,
-        )
-        .copyWith(
-            baseUrl: _combineBaseUrls(
-          _dio.options.baseUrl,
-          baseUrl,
-        )));
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late StoreAuthRes _value;
-    try {
-      _value = StoreAuthRes.fromJson(_result.data!);
-    } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
-      rethrow;
-    }
-    return _value;
-  }
-
-  @override
-  Future<StoreGetAuthEmailRes> exists(
-    String email, {
-    Map<String, String>? customHeaders,
-  }) async {
-    final _extra = <String, dynamic>{};
-    _extra.addAll(customHeaders ?? <String, dynamic>{});
-    final queryParameters = <String, dynamic>{};
-    queryParameters.removeWhere((k, v) => v == null);
-    final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<StoreGetAuthEmailRes>(Options(
-      method: 'GET',
-      headers: _headers,
-      extra: _extra,
-    )
-        .compose(
-          _dio.options,
-          '/store/auth/${email}',
-          queryParameters: queryParameters,
-          data: _data,
-        )
-        .copyWith(
-            baseUrl: _combineBaseUrls(
-          _dio.options.baseUrl,
-          baseUrl,
-        )));
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late StoreGetAuthEmailRes _value;
-    try {
-      _value = StoreGetAuthEmailRes.fromJson(_result.data!);
-    } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
-      rethrow;
-    }
-    return _value;
-  }
-
-  @override
-  Future<StoreBearerAuthRes> getToken(
+  Future<void> getRegistrationToken(
+    String authProvider,
     StorePostAuthReq payload, {
     Map<String, String>? customHeaders,
   }) async {
@@ -172,6 +65,34 @@ class _AuthResource implements AuthResource {
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(payload.toJson());
+    final _options = _setStreamType<void>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/auth/customer/${authProvider}/register',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
+    await _dio.fetch<void>(_options);
+  }
+
+  @override
+  Future<StoreBearerAuthRes> refreshToken(
+      {Map<String, String>? customHeaders}) async {
+    final _extra = <String, dynamic>{};
+    _extra.addAll(customHeaders ?? <String, dynamic>{});
+    final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
     final _options = _setStreamType<StoreBearerAuthRes>(Options(
       method: 'POST',
       headers: _headers,
@@ -179,7 +100,7 @@ class _AuthResource implements AuthResource {
     )
         .compose(
           _dio.options,
-          '/store/auth/token',
+          '/auth/token/refresh',
           queryParameters: queryParameters,
           data: _data,
         )

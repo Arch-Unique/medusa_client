@@ -20,7 +20,7 @@ class ProductVariant {
     this.ean,
     this.upc,
     this.variantRank,
-    required this.inventoryQuantity,
+    this.inventoryQuantity=0,
     required this.allowBackorder,
     required this.manageInventory,
     this.hsCode,
@@ -75,7 +75,7 @@ class ProductVariant {
   int? variantRank;
 
   /// The current quantity of the item that is stocked.
-  int inventoryQuantity;
+  int? inventoryQuantity;
 
   /// Whether the Product Variant should be purchasable when `inventoryQuantity` is 0.
   bool allowBackorder;

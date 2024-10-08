@@ -14,7 +14,7 @@ PricedProduct _$PricedProductFromJson(Map<String, dynamic> json) =>
       description: json['description'] as String?,
       handle: json['handle'] as String?,
       isGiftcard: json['is_giftcard'] as bool? ?? false,
-      status: json['status'] as String,
+      status: json['status'] as String?,
       images: (json['images'] as List<dynamic>?)
           ?.map((e) => Image.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -82,7 +82,7 @@ Map<String, dynamic> _$PricedProductToJson(PricedProduct instance) {
   writeNotNull('description', instance.description);
   writeNotNull('handle', instance.handle);
   val['is_giftcard'] = instance.isGiftcard;
-  val['status'] = instance.status;
+  writeNotNull('status', instance.status);
   writeNotNull('images', instance.images?.map((e) => e.toJson()).toList());
   writeNotNull('thumbnail', instance.thumbnail);
   writeNotNull('options', instance.options?.map((e) => e.toJson()).toList());

@@ -12,7 +12,9 @@ class AuthenticationInterceptor extends Interceptor {
 
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
+    print(options.uri.path);
     switch (medusa.configuration.authenticationType) {
+
       case AuthenticationType.apiKey:
         options.headers['Authorization'] =
             'Bearer ${medusa.configuration.apiKey}';

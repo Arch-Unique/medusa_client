@@ -15,7 +15,7 @@ abstract class BaseProduct {
     this.description,
     this.handle,
     required this.isGiftcard,
-    required this.status,
+    this.status,
     this.images,
     this.thumbnail,
     this.options,
@@ -64,7 +64,7 @@ abstract class BaseProduct {
   bool isGiftcard;
 
   /// The status of the product
-  String status;
+  String? status;
 
   /// The details of the product's images.
   List<Image>? images;
